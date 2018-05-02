@@ -1,0 +1,51 @@
+This text file gives a detailed steps on how to install qemu and toolchain for 64 bit arm architecture on Linux.
+
+System Requirements:
+1)ubuntu 16.04 LTS(Native or on Virtual Box).
+2)Internet connection.
+
+Steps:
+Open a terminal in linux and type the following commands
+1)sudo apt-get update
+2)sudo apt-get install gcc-aarch64-linux-gnu
+3)sudo apt-get install g++-aarch64-linux-gnu
+4)Untar the file aarch64.tgz using the following command:
+  tar -xvf aarch64.tgz
+
+5)Add the toolchain path(which you have untared in the previous step) upto bin folder in your bashrc script.Example is given below:
+Open bashrc < vim ~/.bashrc >(any other text editor can be used) and add the following line at the end of the file
+
+export PATH=/home/ashish/x-tools/aarch64-unknown-linux-gnu/bin:$PATH (Path will be different on your machine).
+type source ~/.bashrc on the terminal.
+
+Steps to Install qemu on ubuntu:
+1)sudo apt-get install qemu-user
+
+Type your c code and create a binary file using below steps:
+
+aarch64-linux-gnu-gcc -g -static -o sum summation.c
+
+Open a new terminal and enter in the same directory where your code is
+
+In the first terminal type below commands:
+
+1)qemu-aarch64 -g 1234 sum
+
+On the other terminal type below commands:
+
+1)aarch64-unknown-linux-gnu-gdb
+after this you will get a gdb prompt on the terminal
+
+Type the below commands on the gdb prompt
+
+1)file sum
+2)target remote localhost:1234
+3)b main
+4)Type ctrl+x and then shift A.After typing this you will get a window with registers.
+5)layout regs
+6)s (used for single stepping).Once single stepping is started then run the program and follow the instructions and give
+the inputs according to the program.
+
+
+
+
